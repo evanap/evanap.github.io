@@ -44,6 +44,7 @@ In the example I define the **updateMode** of the VPA. Currently, there are thre
 - Auto: Makes updates directly to your pods
 - Recreate: Evict old pods and create new ones with updated definition
 - Off: Not applying any recommendations
+
 For me, setting the update mode is safest way since there's no modification taking place until we apply the recommendation ourselves.
 
 If the VPA is successfully created, after about 5 minutes you will start getting resource recommendation of the targeted deployment based on its usage history. You can grab the recommendation by describing the VPA:
