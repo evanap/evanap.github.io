@@ -22,7 +22,12 @@
       }
 }  
 
-.site-footer-navigation{
+.site-footer-navigation {
     color: $blockquote-text-color;
     float: right;
+}
+
+body {
+    line-height: 1.58;
+    letter-spacing: -0.004em;
 }
