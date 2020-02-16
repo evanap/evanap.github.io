@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: post
 title: "First post ever"
 date: 2020-02-16
 ---
