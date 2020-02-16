@@ -54,7 +54,7 @@ If the VPA is successfully created, after about 5 minutes you will start getting
 kubectl describe vpa your-app-vpa
 ```
 
-And it will look like this
+And it will look like this:
 ```
 Name:         your-app-vpa
 Namespace:    default
