@@ -1,3 +1,4 @@
 theme: jekyll-theme-cayman
 title: Welcome to Evan's homepage!
 description: A personal page to pour my thougts and stuffs I learn.
+permalink: /blog/:year/:month/:day/:title
