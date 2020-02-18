@@ -183,4 +183,4 @@ Events:          <none>
 
 ## Conclusion
 
-The VPA is a very useful feature and I think can bring a whole lot of optimizations to our Kubernetes clusters. Though, for now it still need some improvements and to get rid of the bugs like the one I mentioned before. Maybe if it matured a bit more we will see use cases of it in a production environment. For now, I'm keeping it for staging environments and maybe combine it with traffic shadowing to get a grasp of recommendation without using it in production.
+The VPA is a very useful feature and I think it can bring a whole lot of optimizations to our Kubernetes clusters. Though, for now it still need some improvements and to get rid of the bugs like the one I mentioned before. Maybe if it matured a bit more we will see use cases of it in a production environment. For now, I'm keeping it for staging environments and maybe combine it with traffic shadowing to get a grasp of recommendation without using it in production.
