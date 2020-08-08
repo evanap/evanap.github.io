@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>cli on Evan&#39;s Notes</title>
+    <link>https://evanap.github.io/tags/cli/</link>
+    <description>Recent content in cli on Evan&#39;s Notes</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 08 Aug 2020 11:57:00 +0700</lastBuildDate>
+    
+	<atom:link href="https://evanap.github.io/tags/cli/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Using awsudo</title>
+      <link>https://evanap.github.io/posts/using-awsudo/</link>
+      <pubDate>Sat, 08 Aug 2020 11:57:00 +0700</pubDate>
+      
+      <guid>https://evanap.github.io/posts/using-awsudo/</guid>
+      <description>Recently I&amp;rsquo;ve been using this tool called awsudo. It&amp;rsquo;s a simple tool that helps you assume roles if you use that strategy in AWS.
+Installation Run this command to start the installation:
+bash &amp;lt;(curl https://raw.githubusercontent.com/makethunder/awsudo/master/install) Usage If this is your first time using AWS cli, configure your credentials first:
+$ aws configure AWS Access Key ID [None]: insert-your-access-key-id AWS Secret Access Key [None]: insert-your-secret-access-key Default region name [None]: ap-southeast-1 Default output format [None]: json Now that you have your credentials configured, you can start using awsudo.</description>
+    </item>
+    
+  </channel>
+</rss>

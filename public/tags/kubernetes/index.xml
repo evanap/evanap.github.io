@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>kubernetes on Evan&#39;s Notes</title>
+    <link>https://evanap.github.io/tags/kubernetes/</link>
+    <description>Recent content in kubernetes on Evan&#39;s Notes</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 16 Feb 2020 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://evanap.github.io/tags/kubernetes/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Vertical Pod Autoscaler Recommendation</title>
+      <link>https://evanap.github.io/posts/vertical-pod-autoscaler-recommendation/</link>
+      <pubDate>Sun, 16 Feb 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://evanap.github.io/posts/vertical-pod-autoscaler-recommendation/</guid>
+      <description>Right-sizing a deployment of an app on a Kubernetes clulster is a tricky thing to do. Setting requests and limits too high, you might end up with unschedullable pods due to resource scarcity. Setting requets and limits too low and you might end up with OOMKilled pods. Luckily, there&amp;rsquo;s an answer (kind of) for that. It&amp;rsquo;s the Vertical Pod Autoscaler or VPA for short.
+VPA is a custom resource, a part of autoscaling components of Kubernetes.</description>
+    </item>
+    
+  </channel>
+</rss>

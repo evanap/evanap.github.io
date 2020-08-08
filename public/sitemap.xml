@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  
+  <url>
+    <loc>https://evanap.github.io/tags/aws/</loc>
+    <lastmod>2020-08-08T11:57:00+07:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://evanap.github.io/tags/cli/</loc>
+    <lastmod>2020-08-08T11:57:00+07:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://evanap.github.io/</loc>
+    <lastmod>2020-08-08T11:57:00+07:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://evanap.github.io/posts/</loc>
+    <lastmod>2020-08-08T11:57:00+07:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://evanap.github.io/tags/</loc>
+    <lastmod>2020-08-08T11:57:00+07:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://evanap.github.io/posts/using-awsudo/</loc>
+    <lastmod>2020-08-08T11:57:00+07:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://evanap.github.io/tags/autoscaling/</loc>
+    <lastmod>2020-02-16T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://evanap.github.io/tags/docker/</loc>
+    <lastmod>2020-02-16T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://evanap.github.io/tags/kubernetes/</loc>
+    <lastmod>2020-02-16T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://evanap.github.io/posts/vertical-pod-autoscaler-recommendation/</loc>
+    <lastmod>2020-02-16T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://evanap.github.io/posts/my-first-post/</loc>
+    <lastmod>2020-02-15T18:57:20+07:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://evanap.github.io/about/</loc>
+    <lastmod>2020-02-14T10:20:55+07:00</lastmod>
+  </url>
+  
+</urlset>
