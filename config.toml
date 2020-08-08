@@ -1,4 +1,4 @@
-baseURL = "https://evanap.github.io/"
+baseURL = "https://evanap.com/"
 languageCode = "en-us"
 title = "Evan's Notes"
 theme = "hugo-theme-diary"
