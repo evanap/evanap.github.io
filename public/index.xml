@@ -1,23 +1,23 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Evan&#39;s Notes</title>
-    <link>https://evanap.github.io/</link>
+    <link>https://evanap.com/</link>
     <description>Recent content on Evan&#39;s Notes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Sat, 08 Aug 2020 11:57:00 +0700</lastBuildDate>
     
-        <atom:link href="https://evanap.github.io/index.xml" rel="self" type="application/rss+xml" />
+        <atom:link href="https://evanap.com/index.xml" rel="self" type="application/rss+xml" />
     
     
     
         <item>
         <title>Using awsudo</title>
-        <link>https://evanap.github.io/posts/using-awsudo/</link>
+        <link>https://evanap.com/posts/using-awsudo/</link>
         <pubDate>Sat, 08 Aug 2020 11:57:00 +0700</pubDate>
         
-        <guid>https://evanap.github.io/posts/using-awsudo/</guid>
-        <description>Evan&#39;s Notes https://evanap.github.io/posts/using-awsudo/ -&lt;p&gt;Recently I&amp;rsquo;ve been using this tool called &lt;code&gt;awsudo&lt;/code&gt;. It&amp;rsquo;s a simple tool that helps you assume roles if you use that strategy in AWS.&lt;/p&gt;
+        <guid>https://evanap.com/posts/using-awsudo/</guid>
+        <description>Evan&#39;s Notes https://evanap.com/posts/using-awsudo/ -&lt;p&gt;Recently I&amp;rsquo;ve been using this tool called &lt;code&gt;awsudo&lt;/code&gt;. It&amp;rsquo;s a simple tool that helps you assume roles if you use that strategy in AWS.&lt;/p&gt;
 &lt;h2 id=&#34;installation&#34;&gt;Installation&lt;/h2&gt;
 &lt;p&gt;Run this command to start the installation:&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;bash &amp;lt;(curl https://raw.githubusercontent.com/makethunder/awsudo/master/install)
@@ -43,18 +43,18 @@ mfa_serial = arn:aws:iam::98765432100:mfa/evan
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;The command outputs the credentials required to run things using AWS cli, but in at this state you would need to run it every time you want to invoke AWS cli. I made it simpler by exporting those credentials to the current bash session:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;color:#008000&#34;&gt;eval&lt;/span&gt; &lt;span style=&#34;color:#ba2121&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#008000;font-weight:bold&#34;&gt;$(&lt;/span&gt;sed &lt;span style=&#34;color:#ba2121&#34;&gt;&amp;#39;s/^/export /&amp;#39;&lt;/span&gt; &amp;lt;&lt;span style=&#34;color:#666&#34;&gt;(&lt;/span&gt;awsudo -u infra env | grep AWS&lt;span style=&#34;color:#008000;font-weight:bold&#34;&gt;)&lt;/span&gt;&lt;span style=&#34;color:#ba2121&#34;&gt;)&amp;#34;&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Now you just need to run it once every time your credentials expired.&lt;/p&gt;
-- https://evanap.github.io/posts/using-awsudo/ - </description>
+- https://evanap.com/posts/using-awsudo/ - </description>
         </item>
     
     
     
         <item>
         <title>Vertical Pod Autoscaler Recommendation</title>
-        <link>https://evanap.github.io/posts/vertical-pod-autoscaler-recommendation/</link>
+        <link>https://evanap.com/posts/vertical-pod-autoscaler-recommendation/</link>
         <pubDate>Sun, 16 Feb 2020 00:00:00 +0000</pubDate>
         
-        <guid>https://evanap.github.io/posts/vertical-pod-autoscaler-recommendation/</guid>
-        <description>Evan&#39;s Notes https://evanap.github.io/posts/vertical-pod-autoscaler-recommendation/ -&lt;p&gt;Right-sizing a deployment of an app on a Kubernetes clulster is a tricky thing to do. Setting requests and limits too high, you might end up with unschedullable pods due to resource scarcity. Setting requets and limits too low and you might end up with OOMKilled pods. Luckily, there&amp;rsquo;s an answer (kind of) for that. It&amp;rsquo;s the &lt;strong&gt;Vertical Pod Autoscaler&lt;/strong&gt; or &lt;strong&gt;VPA&lt;/strong&gt; for short.&lt;/p&gt;
+        <guid>https://evanap.com/posts/vertical-pod-autoscaler-recommendation/</guid>
+        <description>Evan&#39;s Notes https://evanap.com/posts/vertical-pod-autoscaler-recommendation/ -&lt;p&gt;Right-sizing a deployment of an app on a Kubernetes clulster is a tricky thing to do. Setting requests and limits too high, you might end up with unschedullable pods due to resource scarcity. Setting requets and limits too low and you might end up with OOMKilled pods. Luckily, there&amp;rsquo;s an answer (kind of) for that. It&amp;rsquo;s the &lt;strong&gt;Vertical Pod Autoscaler&lt;/strong&gt; or &lt;strong&gt;VPA&lt;/strong&gt; for short.&lt;/p&gt;
 &lt;p&gt;VPA is a custom resource, a part of autoscaling components of Kubernetes. It can scale resource and limits of the containers in pods, based on their usage over time. Very neat.&lt;/p&gt;
 &lt;h2 id=&#34;installation&#34;&gt;Installation&lt;/h2&gt;
 &lt;p&gt;s
@@ -206,31 +206,31 @@ Status:
 Events:          &amp;lt;none&amp;gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;h2 id=&#34;conclusion&#34;&gt;Conclusion&lt;/h2&gt;
 &lt;p&gt;The VPA is a very useful feature and I think it can bring a whole lot of optimizations to our Kubernetes clusters. Though, for now it still need some improvements and to get rid of the bugs like the one I mentioned before. Maybe if it matured a bit more we will see use cases of it in a production environment. For now, I&amp;rsquo;m keeping it for staging environments and maybe combine it with traffic shadowing to get a grasp of recommendation without using it in production.&lt;/p&gt;
-- https://evanap.github.io/posts/vertical-pod-autoscaler-recommendation/ - </description>
+- https://evanap.com/posts/vertical-pod-autoscaler-recommendation/ - </description>
         </item>
     
     
     
         <item>
         <title>First Post</title>
-        <link>https://evanap.github.io/posts/my-first-post/</link>
+        <link>https://evanap.com/posts/my-first-post/</link>
         <pubDate>Sat, 15 Feb 2020 18:57:20 +0700</pubDate>
         
-        <guid>https://evanap.github.io/posts/my-first-post/</guid>
-        <description>Evan&#39;s Notes https://evanap.github.io/posts/my-first-post/ -&lt;p&gt;Well, for quite some time I&amp;rsquo;ve been looking to put this personal site of my own. Been stuck in choosing which platform will host this site, whether it&amp;rsquo;s building the platform myself maybe using Docker or some single node Kubernetes cluster, or just a simple web server hosted by a single instance on some cloud. But, the choice comes down to GitHub Pages. It&amp;rsquo;s easy and hassle-free. So, yeah, there&amp;rsquo;s that.&lt;/p&gt;
-- https://evanap.github.io/posts/my-first-post/ - </description>
+        <guid>https://evanap.com/posts/my-first-post/</guid>
+        <description>Evan&#39;s Notes https://evanap.com/posts/my-first-post/ -&lt;p&gt;Well, for quite some time I&amp;rsquo;ve been looking to put this personal site of my own. Been stuck in choosing which platform will host this site, whether it&amp;rsquo;s building the platform myself maybe using Docker or some single node Kubernetes cluster, or just a simple web server hosted by a single instance on some cloud. But, the choice comes down to GitHub Pages. It&amp;rsquo;s easy and hassle-free. So, yeah, there&amp;rsquo;s that.&lt;/p&gt;
+- https://evanap.com/posts/my-first-post/ - </description>
         </item>
     
     
     
         <item>
         <title>About Me</title>
-        <link>https://evanap.github.io/about/</link>
+        <link>https://evanap.com/about/</link>
         <pubDate>Fri, 14 Feb 2020 10:20:55 +0700</pubDate>
         
-        <guid>https://evanap.github.io/about/</guid>
-        <description>Evan&#39;s Notes https://evanap.github.io/about/ -&lt;p&gt;Hi! I&amp;rsquo;m Evan. I&amp;rsquo;m an engineer currently interested in infrastructure, cloud, and DevOps. I&amp;rsquo;m used to Terraform and Ansible. I also have experience with Kubernetes and Docker, which picks my interest the most now. I usually wander around the cloud technology provided by Google and Amazon. Most of my time now is spent as a Kubernetes cluster administrator. In my free time I usually learn Go or Python, or hop into my PC to watch anime or play some games.&lt;/p&gt;
-- https://evanap.github.io/about/ - </description>
+        <guid>https://evanap.com/about/</guid>
+        <description>Evan&#39;s Notes https://evanap.com/about/ -&lt;p&gt;Hi! I&amp;rsquo;m Evan. I&amp;rsquo;m an engineer currently interested in infrastructure, cloud, and DevOps. I&amp;rsquo;m used to Terraform and Ansible. I also have experience with Kubernetes and Docker, which picks my interest the most now. I usually wander around the cloud technology provided by Google and Amazon. Most of my time now is spent as a Kubernetes cluster administrator. In my free time I usually learn Go or Python, or hop into my PC to watch anime or play some games.&lt;/p&gt;
+- https://evanap.com/about/ - </description>
         </item>
     
     
