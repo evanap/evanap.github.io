@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>cicd on Evan&#39;s Notes</title>
+    <link>https://evanap.com/tags/cicd/</link>
+    <description>Recent content in cicd on Evan&#39;s Notes</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 09 Aug 2020 09:26:14 +0700</lastBuildDate>
+    
+	<atom:link href="https://evanap.com/tags/cicd/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Deploying prow</title>
+      <link>https://evanap.com/posts/deploying-prow/</link>
+      <pubDate>Sun, 09 Aug 2020 09:26:14 +0700</pubDate>
+      
+      <guid>https://evanap.com/posts/deploying-prow/</guid>
+      <description>Prow is a CI/CD system used in the Kubernetes repositories, and many more. It&amp;rsquo;s known for the ChatOps feature (at least to me) which I think found very cool. I decided to give it a try myself and see it in action.
+Prerequisites  A working Kubernetes cluster with internet access A GCP account A GitHub account  Installation Prow can be found in Kubernetes&amp;rsquo; test-infra repository (here). The first thing to do is to clone the repo:</description>
+    </item>
+    
+  </channel>
+</rss>

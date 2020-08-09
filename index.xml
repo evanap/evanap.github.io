@@ -5,9 +5,117 @@
     <description>Recent content on Evan&#39;s Notes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 08 Aug 2020 11:57:00 +0700</lastBuildDate>
+    <lastBuildDate>Sun, 09 Aug 2020 09:26:14 +0700</lastBuildDate>
     
         <atom:link href="https://evanap.com/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    
+        <item>
+        <title>Deploying prow</title>
+        <link>https://evanap.com/posts/deploying-prow/</link>
+        <pubDate>Sun, 09 Aug 2020 09:26:14 +0700</pubDate>
+        
+        <guid>https://evanap.com/posts/deploying-prow/</guid>
+        <description>Evan&#39;s Notes https://evanap.com/posts/deploying-prow/ -&lt;p&gt;Prow is a CI/CD system used in the Kubernetes repositories, and many more. It&amp;rsquo;s known for the ChatOps feature (at least to me) which I think found very cool. I decided to give it a try myself and see it in action.&lt;/p&gt;
+&lt;h2 id=&#34;prerequisites&#34;&gt;Prerequisites&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;A working Kubernetes cluster with internet access&lt;/li&gt;
+&lt;li&gt;A GCP account&lt;/li&gt;
+&lt;li&gt;A GitHub account&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;installation&#34;&gt;Installation&lt;/h2&gt;
+&lt;p&gt;Prow can be found in Kubernetes&amp;rsquo; &lt;code&gt;test-infra&lt;/code&gt; repository (&lt;a href=&#34;https://github.com/kubernetes/test-infra/tree/master/prow&#34;&gt;here&lt;/a&gt;). The first thing to do is to clone the repo:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;git clone https://github.com/kubernetes/test-infra.git
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;After that we need to set up an access to GitHub for Prow by creating an access token. The required scope are as follows.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;repo:status
+public_repo
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Next, we need to create two secrets to be used by Prow. One is &lt;code&gt;hmac-token&lt;/code&gt; that&amp;rsquo;s going to be used to validate webhooks&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;openssl rand -hex 20 &amp;gt; hmac-token
+kubetl create secret generic hmac-token --from-file=hmac=./hmac-token
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;And the other is the &lt;code&gt;github-token&lt;/code&gt; for the bot account&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;echo &#39;insert-github-token-here&#39; &amp;gt; github-token
+kubetl create secret generic github-token --from-file=token=./github-token
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Next, we&amp;rsquo;re going to update the sample manifest that we&amp;rsquo;re going to use. There are two sample manifests, one with minio as blog storage (&lt;a href=&#34;https://github.com/kubernetes/test-infra/blob/master/config/prow/cluster/starter-s3.yaml&#34;&gt;starter-s3.yaml&lt;/a&gt;) and the other one that uses GCS (&lt;a href=&#34;https://github.com/kubernetes/test-infra/blob/master/config/prow/cluster/starter-gcs.yaml&#34;&gt;starter-gcs.yaml&lt;/a&gt;). I decided to use the one with GCS.&lt;/p&gt;
+&lt;p&gt;With both sample manifests there are things that we need to adjust, those are:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;GitHub token, replace &lt;code&gt;&amp;lt;&amp;lt;insert-token-here&amp;gt;&amp;gt;&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;hmac token, replace &lt;code&gt;&amp;lt;&amp;lt; insert-hmac-token-here &amp;gt;&amp;gt;&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;domain, replace &lt;code&gt;&amp;lt;&amp;lt; your-domain.com &amp;gt;&amp;gt;&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;GitHub organization, replace &lt;code&gt;&amp;lt;&amp;lt; your_github_org &amp;gt;&amp;gt;&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Prow artifacts bucket, replace &lt;code&gt;gs://bucket-name&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Tide&amp;rsquo;s GCS bucket, replace &lt;code&gt;gs://tide/&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Statusreconciler&amp;rsquo;s GCS bucket, replace &lt;code&gt;gs://status-reconciler/&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Then we need to provide the buckets and a service account to be used by Prow:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;$ gcloud iam service-accounts create prow-gcs-publisher
+$ identifier=&amp;quot;$(gcloud iam service-accounts list --filter &#39;name:prow-gcs-publisher&#39; --format &#39;value(email)&#39;)&amp;quot;
+$ gsutil mb gs://prow-artifacts-bucket-name/ 
+$ gsutil mb gs://tide-bucket-name/ 
+$ gsutil mb gs://status-reconciler-bucket-name/ 
+$ gsutil iam ch allUsers:objectViewer gs://prow-artifacts-bucket-name 
+$ gsutil iam ch allUsers:objectViewer gs://tide-bucket-name
+$ gsutil iam ch allUsers:objectViewer gs://status-reconciler-bucket-name
+$ gsutil iam ch &amp;quot;serviceAccount:${identifier}:objectAdmin&amp;quot; gs://prow-artifacts 
+$ gsutil iam ch &amp;quot;serviceAccount:${identifier}:objectAdmin&amp;quot; gs://tide-bucket-name  
+$ gsutil iam ch &amp;quot;serviceAccount:${identifier}:objectAdmin&amp;quot; gs://status-reconciler-bucket-name
+$ gcloud iam service-accounts keys create --iam-account &amp;quot;${identifier}&amp;quot; service-account.json 
+$ kubectl -n test-pods create secret generic gcs-credentials --from-file=service-account.json 
+$ kubectl -n prow create secret generic gcs-credentials --from-file=service-account.json 
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Next is adding Prow components to the cluster:&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;kubectl apply -f config/prow/cluster/starter-gcs.yaml&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;If things goes well we should be able to our external address.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;kubectl get -n prow ingress prow
+NAME   CLASS    HOSTS                     ADDRESS               	PORTS     AGE
+prow   &amp;lt;none&amp;gt;   prow.&amp;lt;&amp;lt;yourdomain.com&amp;gt;&amp;gt;   an.ip.addr.ess          80, 443   22d
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Once we get the address we can go to the address to see Prow&amp;rsquo;s deck. We should see that there&amp;rsquo;s an &amp;ldquo;echo-test&amp;rdquo; job, if it is completed there&amp;rsquo;d be a green check-mark next to it which means Prow is ready to serve.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://github.com/evanap/evanap/raw/hugo-site/images/icon48.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;Next thing we need to do is to add the webhook to GitHub:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Go to repo and click &lt;code&gt;Settings -&amp;gt; Webhooks&lt;/code&gt;, and click &lt;code&gt;Add webhook&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;Use the address we get before as the &lt;code&gt;Payload URL&lt;/code&gt;, it should be something like this &lt;code&gt;http://an.ip.addr.ess/hook&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Change the &lt;code&gt;Content type&lt;/code&gt; to &lt;code&gt;application/json&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Use the &lt;code&gt;hmac-token&lt;/code&gt; we generated before as the &lt;code&gt;Secret&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Change the trigger to &lt;code&gt;Send me everything&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Click &lt;code&gt;Add webhook&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;We should be all set with that.&lt;/p&gt;
+&lt;h2 id=&#34;usage&#34;&gt;Usage&lt;/h2&gt;
+&lt;p&gt;Didn&amp;rsquo;t I say that Prow is known for ChatOps? Let&amp;rsquo;s take a look into that. Create a new PR in the repo that&amp;rsquo;s set up before, and try using the commands &lt;code&gt;/meow&lt;/code&gt; or &lt;code&gt;/woof&lt;/code&gt; to send some fluffs to our PR.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://github.com/evanap/evanap/raw/hugo-site/images/icon48.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;Cool, right? There&amp;rsquo;s more to that. We can see the list of plugins available for Prow by visiting our Prow&amp;rsquo;s plugins catalog.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;http://prow.&amp;lt;&amp;lt; your-domain.com &amp;gt;&amp;gt;/plugins
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Should you find interesting plugins you want to use or unused plugins to remove, simply edit the &lt;code&gt;prow&lt;/code&gt; ConfigMap and add or remove the plugins.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-yaml&#34; data-lang=&#34;yaml&#34;&gt;&lt;span style=&#34;color:#008000;font-weight:bold&#34;&gt;apiVersion&lt;/span&gt;:&lt;span style=&#34;color:#bbb&#34;&gt; &lt;/span&gt;v1&lt;span style=&#34;color:#bbb&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#bbb&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#008000;font-weight:bold&#34;&gt;kind&lt;/span&gt;:&lt;span style=&#34;color:#bbb&#34;&gt; &lt;/span&gt;ConfigMap&lt;span style=&#34;color:#bbb&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#bbb&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#008000;font-weight:bold&#34;&gt;metadata&lt;/span&gt;:&lt;span style=&#34;color:#bbb&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#bbb&#34;&gt;  &lt;/span&gt;&lt;span style=&#34;color:#008000;font-weight:bold&#34;&gt;namespace&lt;/span&gt;:&lt;span style=&#34;color:#bbb&#34;&gt; &lt;/span&gt;prow&lt;span style=&#34;color:#bbb&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#bbb&#34;&gt;  &lt;/span&gt;&lt;span style=&#34;color:#008000;font-weight:bold&#34;&gt;name&lt;/span&gt;:&lt;span style=&#34;color:#bbb&#34;&gt; &lt;/span&gt;plugins&lt;span style=&#34;color:#bbb&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#bbb&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#008000;font-weight:bold&#34;&gt;data&lt;/span&gt;:&lt;span style=&#34;color:#bbb&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#bbb&#34;&gt;  &lt;/span&gt;&lt;span style=&#34;color:#008000;font-weight:bold&#34;&gt;plugins.yaml&lt;/span&gt;:&lt;span style=&#34;color:#bbb&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#ba2121;font-style:italic&#34;&gt;|
+&lt;/span&gt;&lt;span style=&#34;color:#ba2121;font-style:italic&#34;&gt;    plugins:&lt;/span&gt;&lt;span style=&#34;color:#bbb&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#bbb&#34;&gt;      &lt;/span&gt;&lt;span style=&#34;color:#008000;font-weight:bold&#34;&gt;evanap/hello&lt;/span&gt;:&lt;span style=&#34;color:#bbb&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#bbb&#34;&gt;      &lt;/span&gt;- approve&lt;span style=&#34;color:#bbb&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#bbb&#34;&gt;      &lt;/span&gt;- assign&lt;span style=&#34;color:#bbb&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#bbb&#34;&gt;      &lt;/span&gt;- blunderbuss&lt;span style=&#34;color:#bbb&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#bbb&#34;&gt;      &lt;/span&gt;- cat&lt;span style=&#34;color:#bbb&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#bbb&#34;&gt;      &lt;/span&gt;- dog&lt;span style=&#34;color:#bbb&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#bbb&#34;&gt;      &lt;/span&gt;- help&lt;span style=&#34;color:#bbb&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#bbb&#34;&gt;      &lt;/span&gt;- heart&lt;span style=&#34;color:#bbb&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#bbb&#34;&gt;      &lt;/span&gt;- hold&lt;span style=&#34;color:#bbb&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#bbb&#34;&gt;      &lt;/span&gt;- label&lt;span style=&#34;color:#bbb&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#bbb&#34;&gt;      &lt;/span&gt;- goose&lt;span style=&#34;color:#bbb&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;# honks the PR&lt;/span&gt;&lt;span style=&#34;color:#bbb&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#bbb&#34;&gt;      &lt;/span&gt;- override&lt;span style=&#34;color:#bbb&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#bbb&#34;&gt;      &lt;/span&gt;- shrug&lt;span style=&#34;color:#bbb&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#bbb&#34;&gt;      &lt;/span&gt;- owners-label&lt;span style=&#34;color:#bbb&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#bbb&#34;&gt;      &lt;/span&gt;- lifecycle&lt;span style=&#34;color:#bbb&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#bbb&#34;&gt;      &lt;/span&gt;- lgtm&lt;span style=&#34;color:#bbb&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#bbb&#34;&gt;      &lt;/span&gt;- trigger&lt;span style=&#34;color:#bbb&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#bbb&#34;&gt;      &lt;/span&gt;- verify-owners&lt;span style=&#34;color:#bbb&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#bbb&#34;&gt;      &lt;/span&gt;- wip&lt;span style=&#34;color:#bbb&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#bbb&#34;&gt;      &lt;/span&gt;- yuks&lt;span style=&#34;color:#bbb&#34;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;- https://evanap.com/posts/deploying-prow/ - </description>
+        </item>
     
     
     

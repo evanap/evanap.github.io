@@ -3,27 +3,47 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://evanap.com/tags/cicd/</loc>
+    <lastmod>2020-08-09T09:26:14+07:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://evanap.com/posts/deploying-prow/</loc>
+    <lastmod>2020-08-09T09:26:14+07:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://evanap.com/</loc>
+    <lastmod>2020-08-09T09:26:14+07:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://evanap.com/tags/kubernetes/</loc>
+    <lastmod>2020-08-09T09:26:14+07:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://evanap.com/posts/</loc>
+    <lastmod>2020-08-09T09:26:14+07:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://evanap.com/tags/prow/</loc>
+    <lastmod>2020-08-09T09:26:14+07:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://evanap.com/tags/</loc>
+    <lastmod>2020-08-09T09:26:14+07:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://evanap.com/tags/aws/</loc>
     <lastmod>2020-08-08T11:57:00+07:00</lastmod>
   </url>
   
   <url>
     <loc>https://evanap.com/tags/cli/</loc>
-    <lastmod>2020-08-08T11:57:00+07:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://evanap.com/</loc>
-    <lastmod>2020-08-08T11:57:00+07:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://evanap.com/posts/</loc>
-    <lastmod>2020-08-08T11:57:00+07:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://evanap.com/tags/</loc>
     <lastmod>2020-08-08T11:57:00+07:00</lastmod>
   </url>
   
@@ -39,11 +59,6 @@
   
   <url>
     <loc>https://evanap.com/tags/docker/</loc>
-    <lastmod>2020-02-16T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://evanap.com/tags/kubernetes/</loc>
     <lastmod>2020-02-16T00:00:00+00:00</lastmod>
   </url>
   

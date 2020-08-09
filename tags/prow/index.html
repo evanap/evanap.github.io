@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html><head>
-<title>Using awsudo</title>
+<title>prow</title>
 
 
 
@@ -66,10 +66,6 @@ if (!doNotTrack) {
 
 
 
-  
-    <script src="https://evanap.com//js/toc-collapse.js"></script>
-  
-
 
 
 
@@ -100,11 +96,9 @@ if (!doNotTrack) {
             
             
             
-                
             
             
-            
-            <a class="a-block nav-link-item active" href="/posts">
+            <a class="a-block nav-link-item false" href="/posts">
                 Posts
             </a>
             
@@ -112,9 +106,11 @@ if (!doNotTrack) {
             
             
             
+                
             
             
-            <a class="a-block nav-link-item false" href="/tags">
+            
+            <a class="a-block nav-link-item active" href="/tags">
                 Tags
             </a>
             
@@ -160,64 +156,6 @@ Ported from <a href="https://mak1t0.cc/" target="_blank" rel="noreferrer noopene
 </div><div ref="extraContainer" class="extra-container">
     
     
-    <div class="toc animated-visibility" :class="{ invisible: scrollY <= 140 }">
-
-
-	<div class="toc-content">
-	
-		
-		
-		
-		<center>- CATALOG -</center>
-		
-		
-		<ul>
-			
-				
-				
-					
-						
-						
-						
-						
-							
-								<ul class="collapse" data-toggle="collapse">
-							
-						
-						
-							<li>
-								<a href="#installation" onclick="onNavClick(`#installation-nav`)" id="installation-nav">
-									Installation
-								</a>
-							</li>
-						
-						
-					
-				
-			
-				
-				
-					
-						
-						
-						
-						
-						
-							<li>
-								<a href="#usage" onclick="onNavClick(`#usage-nav`)" id="usage-nav">
-									Usage
-								</a>
-							</li>
-						
-						
-					
-				
-			
-		</ul>
-	</div>
-
-</div>
-    
     <div class="pagination">
         <a id="globalBackToTop" class="pagination-action animated-visibility" href="#top" :class="{ invisible: scrollY == 0 }">
             <i class="material-icons pagination-action-icon">
@@ -235,6 +173,8 @@ Ported from <a href="https://mak1t0.cc/" target="_blank" rel="noreferrer noopene
         </a>
         
         
+        
+        
     </div>
 </div><div class="single-column-drawer-container" ref="drawer"
      v-bind:class="{ 'single-column-drawer-container-active': isDrawerOpen }">
@@ -246,11 +186,9 @@ Ported from <a href="https://mak1t0.cc/" target="_blank" rel="noreferrer noopene
                 
                 
                 
-                    
                 
                 
-                
-                <a class="a-block drawer-menu-item active" href="/posts">
+                <a class="a-block drawer-menu-item false" href="/posts">
                     Posts
                 </a>
                 
@@ -258,9 +196,11 @@ Ported from <a href="https://mak1t0.cc/" target="_blank" rel="noreferrer noopene
                 
                 
                 
+                    
                 
                 
-                <a class="a-block drawer-menu-item false" href="/tags">
+                
+                <a class="a-block drawer-menu-item active" href="/tags">
                     Tags
                 </a>
                 
@@ -285,64 +225,6 @@ Ported from <a href="https://mak1t0.cc/" target="_blank" rel="noreferrer noopene
                 </a>
                 
             
-            
-            <div class="toc">
-
-
-	<div class="toc-content">
-	
-		
-		
-		
-		<center>- CATALOG -</center>
-		
-		
-		<ul>
-			
-				
-				
-					
-						
-						
-						
-						
-							
-								<ul class="collapse" data-toggle="collapse">
-							
-						
-						
-							<li>
-								<a href="#installation" onclick="onNavClick(`#installation-nav`)" id="installation-nav">
-									Installation
-								</a>
-							</li>
-						
-						
-					
-				
-			
-				
-				
-					
-						
-						
-						
-						
-						
-							<li>
-								<a href="#usage" onclick="onNavClick(`#usage-nav`)" id="usage-nav">
-									Usage
-								</a>
-							</li>
-						
-						
-					
-				
-			
-		</ul>
-	</div>
-
-</div>
             
         </div>
     </div>
@@ -386,120 +268,52 @@ Ported from <a href="https://mak1t0.cc/" target="_blank" rel="noreferrer noopene
             <div id="content">
 <div ref="streamContainer" class="stream-container">
     <div class="post-list-container post-list-container-shadow">
-        <div class="post">
-            
-            
-            
-
-            <div class="post-head-wrapper-text-only"
-                
-            >
-                <div class="post-title">
-                    Using awsudo
-                    
-                    <div class="post-meta">
-                        
-                        <time itemprop="datePublished">
-                            2020-08-08 11:57
-                        </time>
-                        
-
-                        
-
-                        
-                            <i class="material-icons" style="">label</i>
-                            
-                                <a href="/tags/aws">aws</a>
-                                &nbsp;
-                            
-                                <a href="/tags/cli">cli</a>
-                                &nbsp;
-                            
-                        
-                        
-                            <i class="material-icons" style="">schedule</i>
-                            
-
-                            
-                            
-
-                            
-                            1 min
-                            
-                            3 s.
-                        
+        <div class="post-item-wrapper post-item-wrapper-no-hover">
+            <div class="post-item post-item-no-gaps">
+                <div class="post-item-info-wrapper">
+                    <div class="post-item-title  post-item-title-small">
+                        <a href="https://evanap.com/">Evan&#39;s Notes</a> / prow
                     </div>
                 </div>
             </div>
-            
-            <div class="post-body-wrapper">
-                
-                <div class="post-body" v-pre>
-                
-                    <p>Recently I&rsquo;ve been using this tool called <code>awsudo</code>. It&rsquo;s a simple tool that helps you assume roles if you use that strategy in AWS.</p>
-<h2 id="installation">Installation</h2>
-<p>Run this command to start the installation:</p>
-<pre><code>bash &lt;(curl https://raw.githubusercontent.com/makethunder/awsudo/master/install)
-</code></pre><h2 id="usage">Usage</h2>
-<p>If this is your first time using AWS cli, configure your credentials first:</p>
-<div class="highlight"><pre style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ aws configure
-AWS Access Key ID <span style="color:#666">[</span>None<span style="color:#666">]</span>: insert-your-access-key-id
-AWS Secret Access Key <span style="color:#666">[</span>None<span style="color:#666">]</span>: insert-your-secret-access-key
-Default region name <span style="color:#666">[</span>None<span style="color:#666">]</span>: ap-southeast-1
-Default output format <span style="color:#666">[</span>None<span style="color:#666">]</span>: json
-</code></pre></div><p>Now that you have your credentials configured, you can start using <code>awsudo</code>. I use it to switch between roles I have set up in <code>~/.aws/config</code>, it looks like this:</p>
-<pre><code>[profile infra]
-role_arn = arn:aws:iam::123456789012:role/infra
-source_profile = default
-region = ap-southeast-1
-mfa_serial = arn:aws:iam::98765432100:mfa/evan
-</code></pre><p>If you don&rsquo;t use MFA to assume roles you can remove the last line, but I recommend using MFA for extra layer of security. Now you can start assuming roles you have defined by running:</p>
-<div class="highlight"><pre style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ awsudo -u infra env | grep AWS
-<span style="color:#19177c">AWS_SESSION_TOKEN</span><span style="color:#666">=</span>AQoDYXdzEBcaoAKIYnZ67+8/BzPkkpbpR3yfv9bAQoDYXdzEBcaoAKIYnZ67+8/BzPkkpbpR3yfv9b
-<span style="color:#19177c">AWS_SECRET_ACCESS_KEY</span><span style="color:#666">=</span>rkCLOMJMx2DbGoGySIETU8aRFfjGxgJAzDJ6Zt+3
-<span style="color:#19177c">AWS_ACCESS_KEY_ID</span><span style="color:#666">=</span>AKIAIXAKX3ABKZACKEDN
-<span style="color:#19177c">AWS_DEFAULT_REGION</span><span style="color:#666">=</span>ap-southeast-1
-</code></pre></div><p>The command outputs the credentials required to run things using AWS cli, but in at this state you would need to run it every time you want to invoke AWS cli. I made it simpler by exporting those credentials to the current bash session:</p>
-<div class="highlight"><pre style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#008000">eval</span> <span style="color:#ba2121">&#34;</span><span style="color:#008000;font-weight:bold">$(</span>sed <span style="color:#ba2121">&#39;s/^/export /&#39;</span> &lt;<span style="color:#666">(</span>awsudo -u infra env | grep AWS<span style="color:#008000;font-weight:bold">)</span><span style="color:#ba2121">)&#34;</span>
-</code></pre></div><p>Now you just need to run it once every time your credentials expired.</p>
+        </div><a href="/posts/deploying-prow/" class="a-block">
+            <div class="post-item-wrapper">
+                <div class="post-item post-item-no-gaps">
+                    <div class="post-item-info-wrapper">
+                        <div class="post-item-title">
+                            Deploying prow
+                        </div>
+                        <div class="post-item-meta">
+    2020-08-09
+    &emsp;
+    
+    
+    <i class="material-icons" style="font-size:10px">schedule</i>
+    
 
-                    
-                    <HR width="100%" id="EOF">
-		    <p style="color:#777;">Last modified on 2020-08-08</p>
-                    
-                </div>
-            </div>
-            
-            
-            <nav class="post-pagination">
+    
+    
 
-                
-                <a class="newer-posts" href="https://evanap.com/posts/deploying-prow/">
-			Next<br>Deploying prow
-                </a>
-                
-                
-                
-                <a class="older-posts" href="https://evanap.com/posts/vertical-pod-autoscaler-recommendation/">
-			Previous<br>Vertical Pod Autoscaler Recommendation
-                </a>
-                
-            </nav>
-            <div class="post-comment-wrapper">
-                
-
-
-
-
-
-
-
-            </div>
-        </div>
-    </div>
+    
+    2 min
+    
+    52 s
+    
+    
+    &emsp;
+    
 </div>
 
-            </div><div id="single-column-footer">
+                    </div>
+                </div>
+            </div>
+        </a></div>
+</div>
+
+            </div>
+
+
+<div id="single-column-footer">
 Hugo Theme <a href="https://github.com/amazingrise/hugo-theme-diary">Diary</a> by <a href="https://amazingrise.net">Rise</a>
 <br>
 Ported from <a href="https://mak1t0.cc/" target="_blank" rel="noreferrer noopener">Makito</a>'s <a href="https://github.com/SumiMakito/hexo-theme-journal/" target="_blank" rel="noreferrer noopener">Journal.</a> <br>

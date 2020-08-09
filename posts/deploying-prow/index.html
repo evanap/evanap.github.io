@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html><head>
-<title>Using awsudo</title>
+<title>Deploying prow</title>
 
 
 
@@ -186,6 +186,24 @@ Ported from <a href="https://mak1t0.cc/" target="_blank" rel="noreferrer noopene
 						
 						
 							<li>
+								<a href="#prerequisites" onclick="onNavClick(`#prerequisites-nav`)" id="prerequisites-nav">
+									Prerequisites
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
 								<a href="#installation" onclick="onNavClick(`#installation-nav`)" id="installation-nav">
 									Installation
 								</a>
@@ -312,6 +330,24 @@ Ported from <a href="https://mak1t0.cc/" target="_blank" rel="noreferrer noopene
 						
 						
 							<li>
+								<a href="#prerequisites" onclick="onNavClick(`#prerequisites-nav`)" id="prerequisites-nav">
+									Prerequisites
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
 								<a href="#installation" onclick="onNavClick(`#installation-nav`)" id="installation-nav">
 									Installation
 								</a>
@@ -395,12 +431,12 @@ Ported from <a href="https://mak1t0.cc/" target="_blank" rel="noreferrer noopene
                 
             >
                 <div class="post-title">
-                    Using awsudo
+                    Deploying prow
                     
                     <div class="post-meta">
                         
                         <time itemprop="datePublished">
-                            2020-08-08 11:57
+                            2020-08-09 09:26
                         </time>
                         
 
@@ -409,10 +445,13 @@ Ported from <a href="https://mak1t0.cc/" target="_blank" rel="noreferrer noopene
                         
                             <i class="material-icons" style="">label</i>
                             
-                                <a href="/tags/aws">aws</a>
+                                <a href="/tags/prow">prow</a>
                                 &nbsp;
                             
-                                <a href="/tags/cli">cli</a>
+                                <a href="/tags/kubernetes">kubernetes</a>
+                                &nbsp;
+                            
+                                <a href="/tags/cicd">cicd</a>
                                 &nbsp;
                             
                         
@@ -424,9 +463,9 @@ Ported from <a href="https://mak1t0.cc/" target="_blank" rel="noreferrer noopene
                             
 
                             
-                            1 min
+                            2 min
                             
-                            3 s.
+                            52 s.
                         
                     </div>
                 </div>
@@ -436,36 +475,107 @@ Ported from <a href="https://mak1t0.cc/" target="_blank" rel="noreferrer noopene
                 
                 <div class="post-body" v-pre>
                 
-                    <p>Recently I&rsquo;ve been using this tool called <code>awsudo</code>. It&rsquo;s a simple tool that helps you assume roles if you use that strategy in AWS.</p>
+                    <p>Prow is a CI/CD system used in the Kubernetes repositories, and many more. It&rsquo;s known for the ChatOps feature (at least to me) which I think found very cool. I decided to give it a try myself and see it in action.</p>
+<h2 id="prerequisites">Prerequisites</h2>
+<ol>
+<li>A working Kubernetes cluster with internet access</li>
+<li>A GCP account</li>
+<li>A GitHub account</li>
+</ol>
 <h2 id="installation">Installation</h2>
-<p>Run this command to start the installation:</p>
-<pre><code>bash &lt;(curl https://raw.githubusercontent.com/makethunder/awsudo/master/install)
-</code></pre><h2 id="usage">Usage</h2>
-<p>If this is your first time using AWS cli, configure your credentials first:</p>
-<div class="highlight"><pre style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ aws configure
-AWS Access Key ID <span style="color:#666">[</span>None<span style="color:#666">]</span>: insert-your-access-key-id
-AWS Secret Access Key <span style="color:#666">[</span>None<span style="color:#666">]</span>: insert-your-secret-access-key
-Default region name <span style="color:#666">[</span>None<span style="color:#666">]</span>: ap-southeast-1
-Default output format <span style="color:#666">[</span>None<span style="color:#666">]</span>: json
-</code></pre></div><p>Now that you have your credentials configured, you can start using <code>awsudo</code>. I use it to switch between roles I have set up in <code>~/.aws/config</code>, it looks like this:</p>
-<pre><code>[profile infra]
-role_arn = arn:aws:iam::123456789012:role/infra
-source_profile = default
-region = ap-southeast-1
-mfa_serial = arn:aws:iam::98765432100:mfa/evan
-</code></pre><p>If you don&rsquo;t use MFA to assume roles you can remove the last line, but I recommend using MFA for extra layer of security. Now you can start assuming roles you have defined by running:</p>
-<div class="highlight"><pre style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ awsudo -u infra env | grep AWS
-<span style="color:#19177c">AWS_SESSION_TOKEN</span><span style="color:#666">=</span>AQoDYXdzEBcaoAKIYnZ67+8/BzPkkpbpR3yfv9bAQoDYXdzEBcaoAKIYnZ67+8/BzPkkpbpR3yfv9b
-<span style="color:#19177c">AWS_SECRET_ACCESS_KEY</span><span style="color:#666">=</span>rkCLOMJMx2DbGoGySIETU8aRFfjGxgJAzDJ6Zt+3
-<span style="color:#19177c">AWS_ACCESS_KEY_ID</span><span style="color:#666">=</span>AKIAIXAKX3ABKZACKEDN
-<span style="color:#19177c">AWS_DEFAULT_REGION</span><span style="color:#666">=</span>ap-southeast-1
-</code></pre></div><p>The command outputs the credentials required to run things using AWS cli, but in at this state you would need to run it every time you want to invoke AWS cli. I made it simpler by exporting those credentials to the current bash session:</p>
-<div class="highlight"><pre style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#008000">eval</span> <span style="color:#ba2121">&#34;</span><span style="color:#008000;font-weight:bold">$(</span>sed <span style="color:#ba2121">&#39;s/^/export /&#39;</span> &lt;<span style="color:#666">(</span>awsudo -u infra env | grep AWS<span style="color:#008000;font-weight:bold">)</span><span style="color:#ba2121">)&#34;</span>
-</code></pre></div><p>Now you just need to run it once every time your credentials expired.</p>
-
+<p>Prow can be found in Kubernetes&rsquo; <code>test-infra</code> repository (<a href="https://github.com/kubernetes/test-infra/tree/master/prow">here</a>). The first thing to do is to clone the repo:</p>
+<pre><code>git clone https://github.com/kubernetes/test-infra.git
+</code></pre><p>After that we need to set up an access to GitHub for Prow by creating an access token. The required scope are as follows.</p>
+<pre><code>repo:status
+public_repo
+</code></pre><p>Next, we need to create two secrets to be used by Prow. One is <code>hmac-token</code> that&rsquo;s going to be used to validate webhooks</p>
+<pre><code>openssl rand -hex 20 &gt; hmac-token
+kubetl create secret generic hmac-token --from-file=hmac=./hmac-token
+</code></pre><p>And the other is the <code>github-token</code> for the bot account</p>
+<pre><code>echo 'insert-github-token-here' &gt; github-token
+kubetl create secret generic github-token --from-file=token=./github-token
+</code></pre><p>Next, we&rsquo;re going to update the sample manifest that we&rsquo;re going to use. There are two sample manifests, one with minio as blog storage (<a href="https://github.com/kubernetes/test-infra/blob/master/config/prow/cluster/starter-s3.yaml">starter-s3.yaml</a>) and the other one that uses GCS (<a href="https://github.com/kubernetes/test-infra/blob/master/config/prow/cluster/starter-gcs.yaml">starter-gcs.yaml</a>). I decided to use the one with GCS.</p>
+<p>With both sample manifests there are things that we need to adjust, those are:</p>
+<ul>
+<li>GitHub token, replace <code>&lt;&lt;insert-token-here&gt;&gt;</code></li>
+<li>hmac token, replace <code>&lt;&lt; insert-hmac-token-here &gt;&gt;</code></li>
+<li>domain, replace <code>&lt;&lt; your-domain.com &gt;&gt;</code></li>
+<li>GitHub organization, replace <code>&lt;&lt; your_github_org &gt;&gt;</code></li>
+<li>Prow artifacts bucket, replace <code>gs://bucket-name</code></li>
+<li>Tide&rsquo;s GCS bucket, replace <code>gs://tide/</code></li>
+<li>Statusreconciler&rsquo;s GCS bucket, replace <code>gs://status-reconciler/</code></li>
+</ul>
+<p>Then we need to provide the buckets and a service account to be used by Prow:</p>
+<pre><code>$ gcloud iam service-accounts create prow-gcs-publisher
+$ identifier=&quot;$(gcloud iam service-accounts list --filter 'name:prow-gcs-publisher' --format 'value(email)')&quot;
+$ gsutil mb gs://prow-artifacts-bucket-name/ 
+$ gsutil mb gs://tide-bucket-name/ 
+$ gsutil mb gs://status-reconciler-bucket-name/ 
+$ gsutil iam ch allUsers:objectViewer gs://prow-artifacts-bucket-name 
+$ gsutil iam ch allUsers:objectViewer gs://tide-bucket-name
+$ gsutil iam ch allUsers:objectViewer gs://status-reconciler-bucket-name
+$ gsutil iam ch &quot;serviceAccount:${identifier}:objectAdmin&quot; gs://prow-artifacts 
+$ gsutil iam ch &quot;serviceAccount:${identifier}:objectAdmin&quot; gs://tide-bucket-name  
+$ gsutil iam ch &quot;serviceAccount:${identifier}:objectAdmin&quot; gs://status-reconciler-bucket-name
+$ gcloud iam service-accounts keys create --iam-account &quot;${identifier}&quot; service-account.json 
+$ kubectl -n test-pods create secret generic gcs-credentials --from-file=service-account.json 
+$ kubectl -n prow create secret generic gcs-credentials --from-file=service-account.json 
+</code></pre><p>Next is adding Prow components to the cluster:</p>
+<p><code>kubectl apply -f config/prow/cluster/starter-gcs.yaml</code></p>
+<p>If things goes well we should be able to our external address.</p>
+<pre><code>kubectl get -n prow ingress prow
+NAME   CLASS    HOSTS                     ADDRESS               	PORTS     AGE
+prow   &lt;none&gt;   prow.&lt;&lt;yourdomain.com&gt;&gt;   an.ip.addr.ess          80, 443   22d
+</code></pre><p>Once we get the address we can go to the address to see Prow&rsquo;s deck. We should see that there&rsquo;s an &ldquo;echo-test&rdquo; job, if it is completed there&rsquo;d be a green check-mark next to it which means Prow is ready to serve.</p>
+<p><img src="https://github.com/evanap/evanap/raw/hugo-site/images/icon48.png" alt=""></p>
+<p>Next thing we need to do is to add the webhook to GitHub:</p>
+<ul>
+<li>Go to repo and click <code>Settings -&gt; Webhooks</code>, and click <code>Add webhook</code>.</li>
+<li>Use the address we get before as the <code>Payload URL</code>, it should be something like this <code>http://an.ip.addr.ess/hook</code></li>
+<li>Change the <code>Content type</code> to <code>application/json</code></li>
+<li>Use the <code>hmac-token</code> we generated before as the <code>Secret</code></li>
+<li>Change the trigger to <code>Send me everything</code></li>
+<li>Click <code>Add webhook</code></li>
+</ul>
+<p>We should be all set with that.</p>
+<h2 id="usage">Usage</h2>
+<p>Didn&rsquo;t I say that Prow is known for ChatOps? Let&rsquo;s take a look into that. Create a new PR in the repo that&rsquo;s set up before, and try using the commands <code>/meow</code> or <code>/woof</code> to send some fluffs to our PR.</p>
+<p><img src="https://github.com/evanap/evanap/raw/hugo-site/images/icon48.png" alt=""></p>
+<p>Cool, right? There&rsquo;s more to that. We can see the list of plugins available for Prow by visiting our Prow&rsquo;s plugins catalog.</p>
+<pre><code>http://prow.&lt;&lt; your-domain.com &gt;&gt;/plugins
+</code></pre><p>Should you find interesting plugins you want to use or unused plugins to remove, simply edit the <code>prow</code> ConfigMap and add or remove the plugins.</p>
+<div class="highlight"><pre style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#008000;font-weight:bold">apiVersion</span>:<span style="color:#bbb"> </span>v1<span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="color:#008000;font-weight:bold">kind</span>:<span style="color:#bbb"> </span>ConfigMap<span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="color:#008000;font-weight:bold">metadata</span>:<span style="color:#bbb">
+</span><span style="color:#bbb">  </span><span style="color:#008000;font-weight:bold">namespace</span>:<span style="color:#bbb"> </span>prow<span style="color:#bbb">
+</span><span style="color:#bbb">  </span><span style="color:#008000;font-weight:bold">name</span>:<span style="color:#bbb"> </span>plugins<span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="color:#008000;font-weight:bold">data</span>:<span style="color:#bbb">
+</span><span style="color:#bbb">  </span><span style="color:#008000;font-weight:bold">plugins.yaml</span>:<span style="color:#bbb"> </span><span style="color:#ba2121;font-style:italic">|
+</span><span style="color:#ba2121;font-style:italic">    plugins:</span><span style="color:#bbb">
+</span><span style="color:#bbb">      </span><span style="color:#008000;font-weight:bold">evanap/hello</span>:<span style="color:#bbb">
+</span><span style="color:#bbb">      </span>- approve<span style="color:#bbb">
+</span><span style="color:#bbb">      </span>- assign<span style="color:#bbb">
+</span><span style="color:#bbb">      </span>- blunderbuss<span style="color:#bbb">
+</span><span style="color:#bbb">      </span>- cat<span style="color:#bbb">
+</span><span style="color:#bbb">      </span>- dog<span style="color:#bbb">
+</span><span style="color:#bbb">      </span>- help<span style="color:#bbb">
+</span><span style="color:#bbb">      </span>- heart<span style="color:#bbb">
+</span><span style="color:#bbb">      </span>- hold<span style="color:#bbb">
+</span><span style="color:#bbb">      </span>- label<span style="color:#bbb">
+</span><span style="color:#bbb">      </span>- goose<span style="color:#bbb"> </span><span style="color:#408080;font-style:italic"># honks the PR</span><span style="color:#bbb">
+</span><span style="color:#bbb">      </span>- override<span style="color:#bbb">
+</span><span style="color:#bbb">      </span>- shrug<span style="color:#bbb">
+</span><span style="color:#bbb">      </span>- owners-label<span style="color:#bbb">
+</span><span style="color:#bbb">      </span>- lifecycle<span style="color:#bbb">
+</span><span style="color:#bbb">      </span>- lgtm<span style="color:#bbb">
+</span><span style="color:#bbb">      </span>- trigger<span style="color:#bbb">
+</span><span style="color:#bbb">      </span>- verify-owners<span style="color:#bbb">
+</span><span style="color:#bbb">      </span>- wip<span style="color:#bbb">
+</span><span style="color:#bbb">      </span>- yuks<span style="color:#bbb">
+</span></code></pre></div>
                     
                     <HR width="100%" id="EOF">
-		    <p style="color:#777;">Last modified on 2020-08-08</p>
+		    <p style="color:#777;">Last modified on 2020-08-09</p>
                     
                 </div>
             </div>
@@ -474,14 +584,14 @@ mfa_serial = arn:aws:iam::98765432100:mfa/evan
             <nav class="post-pagination">
 
                 
-                <a class="newer-posts" href="https://evanap.com/posts/deploying-prow/">
-			Next<br>Deploying prow
+                <a class="newer-posts">
+			Next<br>No newer posts.
                 </a>
                 
                 
                 
-                <a class="older-posts" href="https://evanap.com/posts/vertical-pod-autoscaler-recommendation/">
-			Previous<br>Vertical Pod Autoscaler Recommendation
+                <a class="older-posts" href="https://evanap.com/posts/using-awsudo/">
+			Previous<br>Using awsudo
                 </a>
                 
             </nav>
