@@ -69,7 +69,7 @@ $ kubectl -n prow create secret generic gcs-credentials --from-file=service-acco
 NAME   CLASS    HOSTS                     ADDRESS               	PORTS     AGE
 prow   &amp;lt;none&amp;gt;   prow.&amp;lt;&amp;lt;yourdomain.com&amp;gt;&amp;gt;   an.ip.addr.ess          80, 443   22d
 &lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Once we get the address we can go to the address to see Prow&amp;rsquo;s deck. We should see that there&amp;rsquo;s an &amp;ldquo;echo-test&amp;rdquo; job, if it is completed there&amp;rsquo;d be a green check-mark next to it which means Prow is ready to serve.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://github.com/evanap/evanap/raw/hugo-site/images/icon48.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://github.com/evanap/evanap/raw/hugo-site/images/deploying-prow-1.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
 &lt;p&gt;Next thing we need to do is to add the webhook to GitHub:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;Go to repo and click &lt;code&gt;Settings -&amp;gt; Webhooks&lt;/code&gt;, and click &lt;code&gt;Add webhook&lt;/code&gt;.&lt;/li&gt;
@@ -82,10 +82,11 @@ prow   &amp;lt;none&amp;gt;   prow.&amp;lt;&amp;lt;yourdomain.com&amp;gt;&amp;gt
 &lt;p&gt;We should be all set with that.&lt;/p&gt;
 &lt;h2 id=&#34;usage&#34;&gt;Usage&lt;/h2&gt;
 &lt;p&gt;Didn&amp;rsquo;t I say that Prow is known for ChatOps? Let&amp;rsquo;s take a look into that. Create a new PR in the repo that&amp;rsquo;s set up before, and try using the commands &lt;code&gt;/meow&lt;/code&gt; or &lt;code&gt;/woof&lt;/code&gt; to send some fluffs to our PR.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://github.com/evanap/evanap/raw/hugo-site/images/icon48.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://github.com/evanap/evanap/raw/hugo-site/images/deploying-prow-2.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
 &lt;p&gt;Cool, right? There&amp;rsquo;s more to that. We can see the list of plugins available for Prow by visiting our Prow&amp;rsquo;s plugins catalog.&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;http://prow.&amp;lt;&amp;lt; your-domain.com &amp;gt;&amp;gt;/plugins
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Should you find interesting plugins you want to use or unused plugins to remove, simply edit the &lt;code&gt;prow&lt;/code&gt; ConfigMap and add or remove the plugins.&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;img src=&#34;https://github.com/evanap/evanap/raw/hugo-site/images/deploying-prow-3.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;Should you find interesting plugins you want to use or unused plugins to remove, simply edit the &lt;code&gt;prow&lt;/code&gt; ConfigMap and add or remove the plugins.&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-yaml&#34; data-lang=&#34;yaml&#34;&gt;&lt;span style=&#34;color:#008000;font-weight:bold&#34;&gt;apiVersion&lt;/span&gt;:&lt;span style=&#34;color:#bbb&#34;&gt; &lt;/span&gt;v1&lt;span style=&#34;color:#bbb&#34;&gt;
 &lt;/span&gt;&lt;span style=&#34;color:#bbb&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#008000;font-weight:bold&#34;&gt;kind&lt;/span&gt;:&lt;span style=&#34;color:#bbb&#34;&gt; &lt;/span&gt;ConfigMap&lt;span style=&#34;color:#bbb&#34;&gt;
 &lt;/span&gt;&lt;span style=&#34;color:#bbb&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#008000;font-weight:bold&#34;&gt;metadata&lt;/span&gt;:&lt;span style=&#34;color:#bbb&#34;&gt;
