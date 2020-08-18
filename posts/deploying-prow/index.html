@@ -463,9 +463,9 @@ Ported from <a href="https://mak1t0.cc/" target="_blank" rel="noreferrer noopene
                             
 
                             
-                            2 min
+                            3 min
                             
-                            52 s.
+                            1 second.
                         
                     </div>
                 </div>
@@ -545,35 +545,35 @@ prow   &lt;none&gt;   prow.&lt;&lt;yourdomain.com&gt;&gt;   an.ip.addr.ess      
 <pre><code>http://prow.&lt;&lt; your-domain.com &gt;&gt;/plugins
 </code></pre><p><img src="https://github.com/evanap/evanap.github.io/raw/hugo-site/images/deploying-prow-3.png" alt="alt text" title="Prow plugins"></p>
 <p>Should you find interesting plugins you want to use or unused plugins to remove, simply edit the <code>prow</code> ConfigMap and add or remove the plugins.</p>
-<div class="highlight"><pre style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#008000;font-weight:bold">apiVersion</span>:<span style="color:#bbb"> </span>v1<span style="color:#bbb">
-</span><span style="color:#bbb"></span><span style="color:#008000;font-weight:bold">kind</span>:<span style="color:#bbb"> </span>ConfigMap<span style="color:#bbb">
-</span><span style="color:#bbb"></span><span style="color:#008000;font-weight:bold">metadata</span>:<span style="color:#bbb">
-</span><span style="color:#bbb">  </span><span style="color:#008000;font-weight:bold">namespace</span>:<span style="color:#bbb"> </span>prow<span style="color:#bbb">
-</span><span style="color:#bbb">  </span><span style="color:#008000;font-weight:bold">name</span>:<span style="color:#bbb"> </span>plugins<span style="color:#bbb">
-</span><span style="color:#bbb"></span><span style="color:#008000;font-weight:bold">data</span>:<span style="color:#bbb">
-</span><span style="color:#bbb">  </span><span style="color:#008000;font-weight:bold">plugins.yaml</span>:<span style="color:#bbb"> </span><span style="color:#ba2121;font-style:italic">|
-</span><span style="color:#ba2121;font-style:italic">    plugins:</span><span style="color:#bbb">
-</span><span style="color:#bbb">      </span><span style="color:#008000;font-weight:bold">evanap/hello</span>:<span style="color:#bbb">
-</span><span style="color:#bbb">      </span>- approve<span style="color:#bbb">
-</span><span style="color:#bbb">      </span>- assign<span style="color:#bbb">
-</span><span style="color:#bbb">      </span>- blunderbuss<span style="color:#bbb">
-</span><span style="color:#bbb">      </span>- cat<span style="color:#bbb">
-</span><span style="color:#bbb">      </span>- dog<span style="color:#bbb">
-</span><span style="color:#bbb">      </span>- help<span style="color:#bbb">
-</span><span style="color:#bbb">      </span>- heart<span style="color:#bbb">
-</span><span style="color:#bbb">      </span>- hold<span style="color:#bbb">
-</span><span style="color:#bbb">      </span>- label<span style="color:#bbb">
-</span><span style="color:#bbb">      </span>- goose<span style="color:#bbb"> </span><span style="color:#408080;font-style:italic"># honks the PR</span><span style="color:#bbb">
-</span><span style="color:#bbb">      </span>- override<span style="color:#bbb">
-</span><span style="color:#bbb">      </span>- shrug<span style="color:#bbb">
-</span><span style="color:#bbb">      </span>- owners-label<span style="color:#bbb">
-</span><span style="color:#bbb">      </span>- lifecycle<span style="color:#bbb">
-</span><span style="color:#bbb">      </span>- lgtm<span style="color:#bbb">
-</span><span style="color:#bbb">      </span>- trigger<span style="color:#bbb">
-</span><span style="color:#bbb">      </span>- verify-owners<span style="color:#bbb">
-</span><span style="color:#bbb">      </span>- wip<span style="color:#bbb">
-</span><span style="color:#bbb">      </span>- yuks<span style="color:#bbb">
-</span></code></pre></div>
+<pre><code>apiVersion: v1
+kind: ConfigMap
+metadata:
+  namespace: prow
+  name: plugins
+data:
+  plugins.yaml: |
+    plugins:
+      evanap/hello:
+      - approve
+      - assign
+      - blunderbuss
+      - cat
+      - dog
+      - help
+      - heart
+      - hold
+      - label
+      - goose # honks the PR
+      - override
+      - shrug
+      - owners-label
+      - lifecycle
+      - lgtm
+      - trigger
+      - verify-owners
+      - wip
+      - yuks
+</code></pre>
                     
                     <HR width="100%" id="EOF">
 		    <p style="color:#777;">Last modified on 2020-08-09</p>
