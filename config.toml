@@ -18,26 +18,6 @@ enableReadingTime=true
   project_tagline = "A personal page to pour my thougts and stuffs I learn."
 
   dateFormat = "2006-01-02"
-  footer = "© 2020 evanap. Made with [Hugo](https://gohugo.io/). Themed by [Cayman](https://github.com/zwbetz-gh/cayman-hugo-theme)."
-
-
-[menu]
-  [[menu.nav]]
-    name = "Notes"
-    url = "/"
-    weight = 1
-  [[menu.nav]]
-    name = "Tags"
-    url = "/tags/"
-    weight = 2
-  [[menu.nav]]
-    name = "About"
-    url = "/about/"
-    weight = 3
-  [[menu.nav]]
-    name = "GitHub"
-    url = "https://github.com/evanap"
-    weight = 4
 
 [[menu.main]]
 url = "/about"

@@ -113,7 +113,7 @@ http://prow.<< your-domain.com >>/plugins
 
 Should you find interesting plugins you want to use or unused plugins to remove, simply edit the `prow` ConfigMap and add or remove the plugins.
 
-```yaml
+```
 apiVersion: v1
 kind: ConfigMap
 metadata:
