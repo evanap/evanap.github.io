@@ -335,10 +335,12 @@ Events:          &amp;lt;none&amp;gt;
         <item>
         <title>About Me</title>
         <link>https://evanap.com/about/</link>
-        <pubDate>Fri, 14 Feb 2020 10:20:55 +0700</pubDate>
+        <pubDate>Mon, 01 Jan 0001 01:01:00 +0700</pubDate>
         
         <guid>https://evanap.com/about/</guid>
-        <description>Evan&#39;s Notes https://evanap.com/about/ -&lt;p&gt;Hi! I&amp;rsquo;m Evan. I&amp;rsquo;m an engineer currently interested in infrastructure, cloud, and DevOps. I&amp;rsquo;m used to Terraform and Ansible. I also have experience with Kubernetes and Docker, which picks my interest the most now. I usually wander around the cloud technology provided by Google and Amazon. Most of my time now is spent as a Kubernetes cluster administrator. In my free time I usually learn Go or Python, or hop into my PC to watch anime or play some games.&lt;/p&gt;
+        <description>Evan&#39;s Notes https://evanap.com/about/ -&lt;p&gt;I&amp;rsquo;m Evan. I&amp;rsquo;m an engineer currently interested in infrastructure, cloud, and DevOps.&lt;/p&gt;
+&lt;p&gt;I&amp;rsquo;m used to Terraform and Ansible. I also have experience with Kubernetes and Docker, which picks my interest the most now. I usually wander around the cloud technology provided by Google and Amazon.&lt;/p&gt;
+&lt;p&gt;I write YAML files for a living. In my free time I&amp;rsquo;m learning programming in Go or Python. If I get bored I usually hop into my PS4 to play some games or watch anime.&lt;/p&gt;
 - https://evanap.com/about/ - </description>
         </item>
     
