@@ -1,6 +1,6 @@
 [build]
 publish = "public"
-command = "hugo --gc --minify -t themes/diary"
+command = "hugo --gc --minify -t /opt/build/repo/themes/diary"
 [context.production.environment]
 HUGO_VERSION = "0.73.0"
 HUGO_ENV = "production"
